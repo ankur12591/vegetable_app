@@ -80,11 +80,12 @@ class VegTile extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                width: 108,
-                height: 108,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                width: 110,
+                height: 110,
+                //padding: const EdgeInsets.symmetric(horizontal:0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
+                  //color: Colors.green,
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
@@ -118,7 +119,7 @@ class VegTile extends StatelessWidget {
     if (imgUrl == null || imgUrl == "") {
       return Container(
         child: CircleAvatar(
-          maxRadius: 26,
+          maxRadius: 56,
           backgroundColor: Colors.transparent,
           backgroundImage: AssetImage('assets/place_holder.png'),
         ),
@@ -126,7 +127,7 @@ class VegTile extends StatelessWidget {
     } else if (imgUrl is List) {
       return Container(
         child: CircleAvatar(
-          maxRadius: 26,
+          maxRadius: 56,
           backgroundColor: Colors.transparent,
           backgroundImage: NetworkImage(imgUrl.first),
         ),
@@ -134,7 +135,7 @@ class VegTile extends StatelessWidget {
     } else {
       return Container(
         child: CircleAvatar(
-          maxRadius: 26,
+          maxRadius: 56,
           backgroundColor: Colors.transparent,
           backgroundImage: NetworkImage(imgUrl),
         ),

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:vegetable_app/Models/response.dart';
+import 'package:vegetable_app/Screens/veg_details.dart';
 import 'package:vegetable_app/Screens/veg_grid_view.dart';
 
 class Vegetable extends StatefulWidget {
@@ -59,7 +59,7 @@ class _VegetableState extends State<Vegetable> {
 
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
+         // height: MediaQuery.of(context).size.height,
           child: Stack(
             children: <Widget>[
               Container(
@@ -71,29 +71,27 @@ class _VegetableState extends State<Vegetable> {
                 //color: Colors.deepOrangeAccent,
                 // padding: EdgeInsets.symmetric(horizontal: 15),
                 // height: MediaQuery.of(context).size.height - 30 ,
-                width: MediaQuery.of(context).size.width,
+                //width: MediaQuery.of(context).size.width,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(),
-                    SingleChildScrollView(
-                      child: Container(
-                        //color: Colors.green,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 25,
-                        ),
-                        margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                        height: 50,
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          "Vegetables",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 26,
-                              fontWeight: FontWeight.w600),
-                        ),
+                    Container(
+                      //color: Colors.green,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 25,
+                      ),
+                      margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        "Vegetables",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 26,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
+
                     Stack(
                       children: [
                         Container(
@@ -110,92 +108,66 @@ class _VegetableState extends State<Vegetable> {
                         ),
                         _loading
                             ? Container(
-                                height: MediaQuery.of(context).size.height ,
-                                child: Center(
-                                    child: CircularProgressIndicator()),
-                              )
-                            : SingleChildScrollView(
-                              child: Container(
-                          height: MediaQuery.of(context).size.height - 100 ,
-                                  //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                  //height: 200,
+                          height: MediaQuery.of(context).size.height,
+                          child:
+                          Center(child: CircularProgressIndicator()),
+                        )
+                            : Container(
+                          height:
+                          MediaQuery.of(context).size.height - 100,
 
-                                  padding: EdgeInsets.fromLTRB(40, 20, 40, 0),
+                          //height: 200,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          //  padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
 
-                                  child: GridView.builder(
-                                    itemCount: list.length,
-                                  //  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                    shrinkWrap: true,
-                                    physics: AlwaysScrollableScrollPhysics(),
-                                    //physics: ClampingScrollPhysics(),
-                                    gridDelegate:
-                                        SliverGridDelegateWithMaxCrossAxisExtent(
-                                      maxCrossAxisExtent: 220,
-                                      mainAxisSpacing: 60.0,
-                                      crossAxisSpacing: 20.0,
-                                      childAspectRatio:
-                                          width / cellHeight,
-                                    ),
-                                    itemBuilder: (BuildContext context,
-                                        int index) {
-                                      return Container(
-                                        child: VegTile(
-                                          title: list[index]['title'],
-                                          price: list[index]['price'],
-                                          description: list[index]
-                                              ['description'],
-                                          imgUrl: list[index]['image']
+                          child: GridView.builder(
+                            itemCount: list.length,
+                            //  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            // physics: ClampingScrollPhysics(),
+                            gridDelegate:
+                            SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 220,
+                              mainAxisSpacing: 60.0,
+                              crossAxisSpacing: 20.0,
+                              childAspectRatio: width / cellHeight,
+                            ),
+                            itemBuilder:
+                                (BuildContext context, int index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailScreen(
+                                                index: index,
+                                                imageString: list[index]
+                                                ['images'],
+                                                list: list,
+                                              )));
+                                },
+                                child: Container(
+                                  child: VegTile(
+                                    title: list[index]['title'],
+                                    description: list[index]
+                                    ['description'],
+                                    imgUrl: list[index]['images'],
+                                    price:
+                                    list[index]['price'].toString(),
 
-                                        ),
-                                      );
-                                      // Container(
-                                      //   child: Text('Hi',
-                                      //     style: TextStyle(fontSize: 20),)
-                                      //
-                                      // );
-                                    },
                                   ),
                                 ),
-                            ),
+                              );
+                            },
+                          ),
+                        ),
 
-                        // _loading ? list != null || list?.length != 0
-                        //     ? GridView.builder(
-                        //   itemCount: list.length,
-                        //   //  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                        //   shrinkWrap: true,
-                        //   physics: AlwaysScrollableScrollPhysics(),
-                        //   //physics: ClampingScrollPhysics(),
-                        //   gridDelegate:
-                        //   SliverGridDelegateWithMaxCrossAxisExtent(
-                        //     maxCrossAxisExtent: 220,
-                        //     mainAxisSpacing: 60.0,
-                        //     crossAxisSpacing: 20.0,
-                        //     childAspectRatio:
-                        //     width / cellHeight,
-                        //   ),
-                        //   itemBuilder: (BuildContext context,
-                        //       int index) {
-                        //     return Container(
-                        //       child: VegTile(
-                        //           title: list[index]['title'],
-                        //           price: list[index]['price'],
-                        //           description: list[index]
-                        //           ['description'],
-                        //           imgUrl: list[index]['image']
-                        //
-                        //       ),
-                        //     );
-                        //     // Container(
-                        //     //   child: Text('Hi',
-                        //     //     style: TextStyle(fontSize: 20),)
-                        //     //
-                        //     // );
-                        //   },
-                        // )
-                        //     : Container()
-                        //     : Loading(),
                       ],
                     ),
+
                   ],
                 ),
               )
@@ -205,11 +177,7 @@ class _VegetableState extends State<Vegetable> {
       ),
     );
   }
-
-
 }
-
-
 
 class Loading extends StatelessWidget {
   @override
