@@ -37,6 +37,7 @@ class _DetailScreenState extends State<DetailScreen> {
             height: 30,
           ),
           Container(
+            //    color: Colors.green,
             // padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
             padding: EdgeInsets.fromLTRB(16, 30, 20, 5),
             child: Row(
@@ -58,40 +59,46 @@ class _DetailScreenState extends State<DetailScreen> {
             height: 30,
           ),
           Container(
-            height: 280,
+            // color: Colors.green,
+            height: 250,
             // color: Colors.orange,
             decoration: BoxDecoration(
+              // color: Colors.green,
               borderRadius: BorderRadius.circular(30),
             ),
-
-            //   child: Column(
-            //     children: [
-            //       widget.imageString == "" || widget.imageString == null
-            //           ? Image.asset('assets/place_holder.png',
-            //               fit: BoxFit.fill)
-            //           : widget.imageList is List
-            //               ? getCarouselView(widget.imageList as List<dynamic>)
-            //               : Image.network(widget.imageString),
-            //     ],
-            //   ),
-            // ),
 
             // Container(
             child: Column(
               children: [
-                widget.imageString == "" || widget.imageList == null
-                    ? Container(
-                        height: 280,
-                        child: Image.asset('assets/place_holder.png',
-                            fit: BoxFit.fill, width: 1000),
-                      )
-                    : widget.imageList is List
-                        ? getCarouselView(widget.imageList as List<dynamic>)
-                        : Container(
-                            height: 280,
-                            color: Colors.redAccent,
-                            child: Image.network(widget.imageString,
-                                fit: BoxFit.fill, width: 1000)),
+                if (widget.imageString != "") ...[
+                  if (widget.imageList == null) ...[
+                    Container(
+                      width: 400,
+                      height: 200,
+                      padding: const EdgeInsets.only(
+                        left: 8.0,
+                        right: 8.0,
+                      ),
+                      decoration: BoxDecoration(
+                          //   color: Colors.green,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Image.network(
+                        widget.imageString,
+                        fit: BoxFit.fill,
+                        width: 400,
+                        height: 200,
+                      ),
+                    ),
+                  ] else ...[
+                    getCarouselView(widget.imageList as List<dynamic>)
+                  ]
+                ] else ...[
+                  Container(
+                    height: 230,
+                    child: Image.asset('assets/place_holder.png',
+                        fit: BoxFit.fill, width: 1000),
+                  ),
+                ]
               ],
             ),
           ),
@@ -283,55 +290,7 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget getCarouselView(List<dynamic> newList) {
     return Container(
       //color: Colors.green,
-      child:
-          // GFCarousel(
-          //   height: 210,
-          //   autoPlay: true,
-          //   pagination: true,
-          //   viewportFraction: 2.0,
-          //   activeIndicator: Color(0xFFFA4A0C),
-          //   passiveIndicator: Color(0xFFC4C4C4),
-          //   aspectRatio: 2,
-          //   items: newList
-          //       .map(
-          //         (url) =>
-          //         //     GFImageOverlay(
-          //         //   height: 280,
-          //         //   margin: const EdgeInsets.only(
-          //         //     left: 8,
-          //         //     right: 8,
-          //         //     bottom: 30,
-          //         //   ),
-          //         //   borderRadius: const BorderRadius.all(Radius.circular(4)),
-          //         //   child: Padding(
-          //         //     padding: const EdgeInsets.only(top: 30, left: 0),
-          //         //     child: Column(
-          //         //       crossAxisAlignment: CrossAxisAlignment.center,
-          //         //       children: const <Widget>[],
-          //         //     ),
-          //         //   ),
-          //         //   image: NetworkImage(url),
-          //         // ),
-          //
-          //         Container(
-          //           margin: EdgeInsets.all(8.0),
-          //           child: ClipRRect(
-          //             borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          //             child: Image.network(
-          //                 url,
-          //                 fit: BoxFit.cover,
-          //                 width: 1000.0
-          //             ),
-          //           ),
-          //         ),
-          //   )
-          //       .toList(),
-          //   onPageChanged: (index) {
-          //     setState(() {});
-          //   },
-          // ),
-
-          GFCarousel(
+      child: GFCarousel(
         height: 230,
         autoPlay: true,
         pagination: true,
@@ -345,7 +304,12 @@ class _DetailScreenState extends State<DetailScreen> {
                       child: Padding(
                     padding: const EdgeInsets.only(
                         left: 8.0, right: 8.0, bottom: 45),
-                    child: Image.network(item, fit: BoxFit.fill, width: 1000),
+                    child: Image.network(
+                      item,
+                      fit: BoxFit.fill,
+                      width: 1000,
+                      height: 200,
+                    ),
                   )),
                 ))
             .toList(),

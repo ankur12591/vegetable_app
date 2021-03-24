@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:vegetable_app/Screens/home.dart';
+import 'package:vegetable_app/Screens/home1.dart';
 import 'package:vegetable_app/Screens/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
