@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:getwidget/components/carousel/gf_carousel.dart';
+import 'package:getwidget/components/image/gf_image_overlay.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class DetailScreen extends StatefulWidget {
   final int index;
@@ -15,6 +18,8 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  int _current = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -26,43 +31,77 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       backgroundColor: Color(0xFFE5E5E5),
       body: SingleChildScrollView(
-          child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              //padding: EdgeInsets.fromLTRB(16, 54, 30, 18),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: SvgPicture.asset(
-                      "assets/left_arrow.svg",
-                      width: 30.0,
-                      height: 30.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Column(
+          child: Column(
+        children: [
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            // padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+            padding: EdgeInsets.fromLTRB(16, 30, 20, 5),
+            child: Row(
               children: [
-                // widget.imageString == "" || widget.imageString == null?
-                //Image.asset('images/place_holder.png',fit: BoxFit.cover) :
-                // widget.imageList is List ?
-                // getCarouselView(widget.imageList as List<dynamic>) :
-                // Image.network(widget.imageString),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: SvgPicture.asset(
+                    "assets/left_arrow.svg",
+                    width: 30.0,
+                    height: 30.0,
+                  ),
+                ),
               ],
             ),
-            SizedBox(
-              height: 30,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            height: 280,
+            // color: Colors.orange,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
             ),
-            Row(
+
+            //   child: Column(
+            //     children: [
+            //       widget.imageString == "" || widget.imageString == null
+            //           ? Image.asset('assets/place_holder.png',
+            //               fit: BoxFit.fill)
+            //           : widget.imageList is List
+            //               ? getCarouselView(widget.imageList as List<dynamic>)
+            //               : Image.network(widget.imageString),
+            //     ],
+            //   ),
+            // ),
+
+            // Container(
+            child: Column(
+              children: [
+                widget.imageString == "" || widget.imageList == null
+                    ? Container(
+                        height: 280,
+                        child: Image.asset('assets/place_holder.png',
+                            fit: BoxFit.fill, width: 1000),
+                      )
+                    : widget.imageList is List
+                        ? getCarouselView(widget.imageList as List<dynamic>)
+                        : Container(
+                            height: 280,
+                            color: Colors.redAccent,
+                            child: Image.network(widget.imageString,
+                                fit: BoxFit.fill, width: 1000)),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+//                padding: EdgeInsets.fromLTRB(16, 10, 20, 5),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(widget.list[widget.index]['title'],
@@ -77,61 +116,62 @@ class _DetailScreenState extends State<DetailScreen> {
                         fontWeight: FontWeight.w600))
               ],
             ),
-            SizedBox(
-              height: 30,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Vitamins", style: buildTextStyleMedium()),
+                SizedBox(
+                  height: 10,
+                ),
+                _buildCircleAvatars(),
+                SizedBox(
+                  height: 25,
+                ),
+                Text('Minerals', style: buildTextStyleMedium()),
+                Text(
+                  widget.list[widget.index]['minerals'],
+                  style: buildTextStyleLightGrey(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  'Description',
+                  style: buildTextStyleMedium(),
+                ),
+                Text(
+                  widget.list[widget.index]['description'],
+                  style: buildTextStyleLightGrey(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  'Pros',
+                  style: buildTextStyleMedium(),
+                ),
+                Container(
+                    // color: Colors.green,
+                    child: _prosList(widget.list[widget.index]['pros'])),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  'Cons',
+                  style: buildTextStyleMedium(),
+                ),
+                _consList(widget.list[widget.index]['Cons']),
+              ],
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Vitamins", style: buildTextStyleMedium()),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  _buildCircleAvatars(),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Text('Minerals', style: buildTextStyleMedium()),
-                  Text(
-                    widget.list[widget.index]['minerals'],
-                    style: buildTextStyleLightGrey(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Description',
-                    style: buildTextStyleMedium(),
-                  ),
-                  Text(
-                    widget.list[widget.index]['description'],
-                    style: buildTextStyleLightGrey(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Pros',
-                    style: buildTextStyleMedium(),
-                  ),
-                  Container(
-                      // color: Colors.green,
-                      child: _prosList(widget.list[widget.index]['pros'])),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Cons',
-                    style: buildTextStyleMedium(),
-                  ),
-                  _consList(widget.list[widget.index]['Cons']),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       )),
     );
   }
@@ -236,6 +276,82 @@ class _DetailScreenState extends State<DetailScreen> {
         'assets/right_arrow_red.svg',
         width: 26.0,
         height: 26.0,
+      ),
+    );
+  }
+
+  Widget getCarouselView(List<dynamic> newList) {
+    return Container(
+      //color: Colors.green,
+      child:
+          // GFCarousel(
+          //   height: 210,
+          //   autoPlay: true,
+          //   pagination: true,
+          //   viewportFraction: 2.0,
+          //   activeIndicator: Color(0xFFFA4A0C),
+          //   passiveIndicator: Color(0xFFC4C4C4),
+          //   aspectRatio: 2,
+          //   items: newList
+          //       .map(
+          //         (url) =>
+          //         //     GFImageOverlay(
+          //         //   height: 280,
+          //         //   margin: const EdgeInsets.only(
+          //         //     left: 8,
+          //         //     right: 8,
+          //         //     bottom: 30,
+          //         //   ),
+          //         //   borderRadius: const BorderRadius.all(Radius.circular(4)),
+          //         //   child: Padding(
+          //         //     padding: const EdgeInsets.only(top: 30, left: 0),
+          //         //     child: Column(
+          //         //       crossAxisAlignment: CrossAxisAlignment.center,
+          //         //       children: const <Widget>[],
+          //         //     ),
+          //         //   ),
+          //         //   image: NetworkImage(url),
+          //         // ),
+          //
+          //         Container(
+          //           margin: EdgeInsets.all(8.0),
+          //           child: ClipRRect(
+          //             borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          //             child: Image.network(
+          //                 url,
+          //                 fit: BoxFit.cover,
+          //                 width: 1000.0
+          //             ),
+          //           ),
+          //         ),
+          //   )
+          //       .toList(),
+          //   onPageChanged: (index) {
+          //     setState(() {});
+          //   },
+          // ),
+
+          GFCarousel(
+        height: 230,
+        autoPlay: true,
+        pagination: true,
+        viewportFraction: 1.0,
+        activeIndicator: Color(0xFFFA4A0C),
+        passiveIndicator: Color(0xFFC4C4C4),
+        aspectRatio: 3,
+        items: newList
+            .map((item) => Container(
+                  child: Center(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 8.0, right: 8.0, bottom: 45),
+                    child: Image.network(item, fit: BoxFit.fill, width: 1000),
+                  )),
+                ))
+            .toList(),
+        onPageChanged: (index) {
+          setState(() {});
+        },
       ),
     );
   }
