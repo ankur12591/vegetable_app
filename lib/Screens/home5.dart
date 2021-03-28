@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     //color: Colors.green,
                     padding: EdgeInsets.symmetric(
-                      horizontal: 25,
+                      horizontal: 27,
                     ),
                     // margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
                     height: 50,
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       "Vegetables",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 26,
+                          fontSize: 30,
                           fontWeight: FontWeight.w600),
                     ),
                   ),
