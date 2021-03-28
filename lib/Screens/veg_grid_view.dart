@@ -14,102 +14,99 @@ class VegTile extends StatelessWidget {
 
     return Wrap(
       children: [
-        Stack(
-          children: [
-            Container(
-              //height: MediaQuery.of(context).size.height - 100,
-              padding: const EdgeInsets.all(0.0),
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  // SizedBox(height: 20,),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 50,
-                      //bottom: 50
-                      //top: 108 / 2.0,
-                    ),
-                    child: Container(
-                     // height: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.white,
-                        ),
-                        child: Wrap(
-                          children: [
-                            Container(
-
-                              // padding: const EdgeInsets.fromLTRB(0,10,0,0),
-
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 80,
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      title,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      "₹" + price,
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 16),
-                                    child: Text(
-                                      description,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                      textAlign: TextAlign.center,
-                                      softWrap: false,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 110,
-                    height: 110,
-                    //padding: const EdgeInsets.symmetric(horizontal:0),
+        Container(
+          //color: Colors.orange,
+        //  height: MediaQuery.of(context).size.height ,
+         // padding: const EdgeInsets.all(0.0),
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              // SizedBox(height: 20,),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 30,
+                  //bottom: 50
+                  //top: 108 / 2.0,
+                ),
+                child: Container(
+                 // height: 300,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      //color: Colors.green,
+                      borderRadius: BorderRadius.circular(30),
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 8.0,
-                          offset: Offset(0.0, 5.0),
+                    ),
+                    child: Wrap(
+                      children: [
+                        Container(
+
+                          // padding: const EdgeInsets.fromLTRB(0,10,0,0),
+
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 80,
+                              ),
+                              Container(
+                                child: Text(
+                                  title,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "₹" + price,
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 16),
+                                child: Text(
+                                  description,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                  textAlign: TextAlign.center,
+                                  softWrap: false,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+
+                            ],
+                          ),
                         ),
                       ],
-                    ),
-                    //child: _image(),
-                    child: _imageView(),
-                  )
-                ],
+                    )),
               ),
-            ),
-          ],
+              Container(
+                //alignment: Alignment.center,
+                width: 100,
+                height: 100,
+                //padding: const EdgeInsets.symmetric(horizontal:0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  //color: Colors.green,
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 8.0,
+                      offset: Offset(0.0, 5.0),
+                    ),
+                  ],
+                ),
+                //child: _image(),
+                child: _imageView(),
+              )
+            ],
+          ),
         ),
       ],
     );
@@ -128,7 +125,7 @@ class VegTile extends StatelessWidget {
     } else if (imgUrl is List) {
       return Container(
         child: CircleAvatar(
-          maxRadius: 56,
+          maxRadius: 60,
           backgroundColor: Colors.transparent,
           backgroundImage: NetworkImage(imgUrl.first),
         ),
@@ -136,7 +133,7 @@ class VegTile extends StatelessWidget {
     } else {
       return Container(
         child: CircleAvatar(
-          maxRadius: 56,
+          maxRadius: 60,
           backgroundColor: Colors.transparent,
           backgroundImage: NetworkImage(imgUrl),
         ),

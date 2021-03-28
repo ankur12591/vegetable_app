@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:vegetable_app/Screens/home1.dart';
+import 'package:vegetable_app/Screens/home5.dart';
+//import 'package:vegetable_app/Screens/new.dart';
 import 'package:vegetable_app/Screens/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
       routes:{
-        '/home':(_) => Vegetable(),
+        '/home':(_) => HomeScreen(),
       },
 
       theme: ThemeData(

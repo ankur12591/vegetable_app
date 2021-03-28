@@ -60,7 +60,7 @@ class _VegetableState extends State<Vegetable> {
       body: Stack(
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height,
+  //          height: MediaQuery.of(context).size.height,
             //padding: EdgeInsets.symmetric(),
             decoration: BoxDecoration(color: Color(0xffEEEEEE)),
           ),
@@ -72,7 +72,7 @@ class _VegetableState extends State<Vegetable> {
                 padding: EdgeInsets.symmetric(
                   horizontal: 25,
                 ),
-                margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                margin: EdgeInsets.fromLTRB(0, 50, 0, 00),
                 height: 50,
 
                 width: MediaQuery.of(context).size.width,
@@ -89,9 +89,9 @@ class _VegetableState extends State<Vegetable> {
                   Expanded(
                     child: Container(
                     //  color: Colors.green,
-                      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                      height: MediaQuery.of(context).size.height - 100,
-                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.fromLTRB(0,20, 0, 0),
+                     // height: MediaQuery.of(context).size.height - 100,
+                      //width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           color: Color(0xffF9F9F9),
                           //color: Colors.white,
@@ -109,68 +109,70 @@ class _VegetableState extends State<Vegetable> {
                       : Column(
                         children: [
                           Container(
-                    color: Colors.green,
+                    //color: Colors.green,
                               height:
                                   MediaQuery.of(context).size.height - 100,
 
                               //height: 200,
                              // padding: EdgeInsets.symmetric(
                                //   horizontal: 10, vertical: 10),
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
 
-                              child: GridView.builder(
-                                itemCount: list.length,
-                                //  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                shrinkWrap: true,
-                                //physics: NeverScrollableScrollPhysics(),
-                                 physics: ClampingScrollPhysics(),
-                                gridDelegate:
-                                    SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 220,
-                                  mainAxisSpacing: 60.0,
-                                  crossAxisSpacing: 20.0,
-                                  childAspectRatio: width / cellHeight,
-                                ),
-                                itemBuilder:
-                                    (BuildContext context, int index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      list[index]['images'].runtimeType ==
-                                              String
-                                          ? Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailScreen(
-                                                        index: index,
-                                                        imageString:
-                                                            list[index]
-                                                                ['images'],
-                                                        list: list,
-                                                      )))
-                                          : Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailScreen(
-                                                        index: index,
-                                                        imageList: list[index]
-                                                            ['images'],
-                                                        list: list,
-                                                      )));
-                                    },
-                                    child: Container(
-                                      child: VegTile(
-                                        title: list[index]['title'],
-                                        description: list[index]
-                                            ['description'],
-                                        imgUrl: list[index]['images'],
-                                        price:
-                                            list[index]['price'].toString(),
+                              child: Expanded(
+                                child: GridView.builder(
+                                  itemCount: list.length,
+                                  //  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                  shrinkWrap: true,
+                                  //physics: NeverScrollableScrollPhysics(),
+                                   physics: ClampingScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 220,
+                                    mainAxisSpacing: 40.0,
+                                    crossAxisSpacing: 20.0,
+                                    childAspectRatio: width / cellHeight,
+                                  ),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        list[index]['images'].runtimeType ==
+                                                String
+                                            ? Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DetailScreen(
+                                                          index: index,
+                                                          imageString:
+                                                              list[index]
+                                                                  ['images'],
+                                                          list: list,
+                                                        )))
+                                            : Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DetailScreen(
+                                                          index: index,
+                                                          imageList: list[index]
+                                                              ['images'],
+                                                          list: list,
+                                                        )));
+                                      },
+                                      child: Container(
+                                        child: VegTile(
+                                          title: list[index]['title'],
+                                          description: list[index]
+                                              ['description'],
+                                          imgUrl: list[index]['images'],
+                                          price:
+                                              list[index]['price'].toString(),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
 
                             ),

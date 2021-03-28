@@ -291,7 +291,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       //color: Colors.green,
       child: GFCarousel(
-        height: 230,
+        height: 250,
         autoPlay: true,
         pagination: true,
         viewportFraction: 1.0,
@@ -306,9 +306,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         left: 8.0, right: 8.0, bottom: 45),
                     child: Image.network(
                       item,
-                      fit: BoxFit.fill,
-                      width: 1000,
-                      height: 200,
+                      fit: BoxFit.cover,
+                      width: 500,
+                      height: 250,
                     ),
                   )),
                 ))
